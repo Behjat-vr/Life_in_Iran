@@ -1,0 +1,26 @@
+{
+  "name": "zendegi-dar-iran",
+  "version": "1.0.0",
+  "description": "شبیه‌ساز زندگی در ایران — بازی متنی",
+  "main": "index.html",
+  "scripts": {
+    "serve": "npx serve . -l 3000",
+    "sync-www": "xcopy /E /Y /I css www\\css 2>nul && xcopy /E /Y /I js www\\js 2>nul && copy index.html www\\index.html",
+    "deploy": "npm run sync-www && npx cap sync android",
+    "android": "npx cap open android",
+    "build": "npm run deploy && npm run android"
+  },
+  "keywords": [
+    "game",
+    "iran",
+    "text-adventure",
+    "persian"
+  ],
+  "author": "MH.Rezaiy",
+  "license": "MIT",
+  "devDependencies": {
+    "@capacitor/android": "^8.5.0",
+    "@capacitor/cli": "^6.2.1",
+    "@capacitor/core": "^8.5.0"
+  }
+}
