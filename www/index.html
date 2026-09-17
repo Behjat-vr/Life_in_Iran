@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="شبیه‌ساز زندگی در ایران — یک بازی متنی هیجان‌انگیز. خانواده‌ات رو انتخاب کن، تصمیم بگیر و سرنوشتت رو بساز.">
+  <meta name="theme-color" content="#0a0a1a">
+  <title>زندگی در ایران — شبیه‌ساز زندگی</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/index.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+</head>
+<body>
+  <!-- Particles Background -->
+  <div id="particles-container"></div>
+
+  <!-- Game Container -->
+  <div id="game-container">
+
+    <!-- ============================
+         WELCOME SCREEN
+         ============================ -->
+    <section class="screen" id="screen-welcome">
+      <div class="welcome__logo-container animate-float-slow">
+        <div style="font-size: 5rem; margin-bottom: 1rem;">🎮</div>
+      </div>
+      <h1 class="welcome__title">زندگی در ایران</h1>
+      <p class="welcome__subtitle">شبیه‌ساز زندگی</p>
+      <p class="welcome__tagline">
+        «هر انتخابی که می‌کنی، مسیر زندگیت رو تغییر میده.<br>
+        ولی آیا واقعاً فرقی داره؟»
+      </p>
+      <button class="btn btn-primary btn-lg welcome__start-btn" id="btn-start-game">
+        ✨ شروع سرنوشت
+      </button>
+      <p class="welcome__version">نسخه ۱.۰ — الهام از کتابخانه نیمه‌شب</p>
+    </section>
+
+    <!-- ============================
+         REGISTRATION SCREEN
+         ============================ -->
+    <section class="screen" id="screen-register">
+      <div style="font-size: 4rem; margin-bottom: 1.5rem;">👤</div>
+      <h2 class="register__title">نام خود را وارد کنید</h2>
+      <p style="color: var(--clr-text-secondary); margin-bottom: 2rem;">
+        قبل از شروع سفر زندگی، اسمت رو بگو...
+      </p>
+      <form class="register__form" id="register-form">
+        <input 
+          type="text" 
+          class="register__input" 
+          id="input-player-name" 
+          placeholder="اسم خودت رو بنویس..."
+          autocomplete="off"
+          maxlength="30"
+          required
+        >
+        <div class="register__bonus">
+          <span>🎁</span>
+          <span>با ثبت‌نام <strong>۲۰۰ توکن رایگان</strong> هدیه بگیر!</span>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+          🚀 شروع ماجراجویی
+        </button>
+      </form>
+    </section>
+
+    <!-- ============================
+         ALAM-E ZAR SCREEN
+         ============================ -->
+    <section class="screen" id="screen-alam-zar">
+      <h2 class="alam-zar__title animate-text-glow">✨ عالم ذر</h2>
+      <p class="alam-zar__description">
+        قبل از اینکه به دنیا بیای، توی عالم ذر هستی. 
+        اینجاست که باید خانواده‌ات رو انتخاب کنی.
+        هر انتخابی مسیر زندگیت رو تغییر میده...
+      </p>
+      <div id="alam-zar-content">
+        <!-- Dynamic content rendered by ScreenManager -->
+      </div>
+    </section>
+
+    <!-- ============================
+         GAMEPLAY SCREEN
+         ============================ -->
+    <section class="screen" id="screen-gameplay">
+      <!-- Top Bar -->
+      <div class="gameplay__top-bar">
+        <div class="gameplay__top-bar-right">
+          <span class="gameplay__player-name" id="top-bar-name">—</span>
+          <div class="age-badge">
+            <span>📅</span>
+            <span class="age-badge__number" id="top-bar-age">۰ سالگی</span>
+          </div>
+        </div>
+        <div class="gameplay__top-bar-left">
+          <div class="token-display">
+            <span class="token-display__icon">🪙</span>
+            <span class="token-display__amount" id="top-bar-tokens">200</span>
+          </div>
+          <button class="btn btn-sm btn-ghost" id="btn-shop">🏪 فروشگاه</button>
+        </div>
+      </div>
+
+      <!-- Story Area -->
+      <div class="gameplay__story-area">
+        <!-- Narrative -->
+        <div class="narrative-box gameplay__narrative">
+          <div id="narrative-text" style="cursor: pointer;">
+            <!-- Typewriter text appears here -->
+          </div>
+        </div>
+
+        <!-- Choices -->
+        <div class="gameplay__choices" id="choices-container">
+          <!-- Choice cards rendered dynamically -->
+        </div>
+
+        <!-- Comeback Button -->
+        <button class="btn btn-ghost btn-sm gameplay__comeback-btn" id="btn-comeback">
+          ⏪ بازگشت (۵۰ توکن)
+        </button>
+      </div>
+
+      <!-- Stats Panel -->
+      <div class="gameplay__stats-panel">
+        <h3 class="gameplay__stats-title">📊 وضعیت زندگی</h3>
+        
+        <div class="stat-bar stat-health">
+          <span class="stat-bar__icon">❤️</span>
+          <span class="stat-bar__label">سلامت</span>
+          <div class="stat-bar__track">
+            <div class="stat-bar__fill" id="stat-fill-health" style="width: 50%"></div>
+          </div>
+          <span class="stat-bar__value" id="stat-value-health">50</span>
+        </div>
+
+        <div class="stat-bar stat-happiness">
+          <span class="stat-bar__icon">😊</span>
+          <span class="stat-bar__label">شادی</span>
+          <div class="stat-bar__track">
+            <div class="stat-bar__fill" id="stat-fill-happiness" style="width: 50%"></div>
+          </div>
+          <span class="stat-bar__value" id="stat-value-happiness">50</span>
+        </div>
+
+        <div class="stat-bar stat-intelligence">
+          <span class="stat-bar__icon">🧠</span>
+          <span class="stat-bar__label">هوش</span>
+          <div class="stat-bar__track">
+            <div class="stat-bar__fill" id="stat-fill-intelligence" style="width: 50%"></div>
+          </div>
+          <span class="stat-bar__value" id="stat-value-intelligence">50</span>
+        </div>
+
+        <div class="stat-bar stat-wealth">
+          <span class="stat-bar__icon">💰</span>
+          <span class="stat-bar__label">ثروت</span>
+          <div class="stat-bar__track">
+            <div class="stat-bar__fill" id="stat-fill-wealth" style="width: 50%"></div>
+          </div>
+          <span class="stat-bar__value" id="stat-value-wealth">50</span>
+        </div>
+
+        <div class="stat-bar stat-social">
+          <span class="stat-bar__icon">👥</span>
+          <span class="stat-bar__label">روابط</span>
+          <div class="stat-bar__track">
+            <div class="stat-bar__fill" id="stat-fill-social" style="width: 50%"></div>
+          </div>
+          <span class="stat-bar__value" id="stat-value-social">50</span>
+        </div>
+
+        <div class="stat-bar stat-fame">
+          <span class="stat-bar__icon">⭐</span>
+          <span class="stat-bar__label">شهرت</span>
+          <div class="stat-bar__track">
+            <div class="stat-bar__fill" id="stat-fill-fame" style="width: 0%"></div>
+          </div>
+          <span class="stat-bar__value" id="stat-value-fame">0</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================
+         DEATH SCREEN
+         ============================ -->
+    <section class="screen" id="screen-death">
+      <div style="font-size: 5rem; margin-bottom: 1rem;">🕊️</div>
+      <h2 class="death__title" id="death-title">پایان سفر</h2>
+      <p class="death__cause" id="death-cause"></p>
+      
+      <div class="divider"></div>
+
+      <div class="death__summary card" id="death-summary">
+        <!-- Filled by ScreenManager -->
+      </div>
+
+      <button class="btn btn-primary btn-lg death__restart-btn animate-glow-pulse" id="btn-restart">
+        🔄 زندگی دوباره
+      </button>
+      <p style="color: var(--clr-text-muted); font-size: var(--fs-sm); margin-top: var(--space-4);">
+        شاید این بار مسیر دیگه‌ای رو امتحان کنی...
+      </p>
+    </section>
+
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="js/main.js?v=20260830-2"></script>
+</body>
+</html>
